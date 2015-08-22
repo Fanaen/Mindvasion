@@ -32,6 +32,7 @@ var Network = function () {
     this.force = d3.layout.force()
       .charge(-500)
       .linkDistance(100)
+      .gravity(.1)
       .size([this.width, this.height]);
 
     // Zoom system --
@@ -45,12 +46,12 @@ var Network = function () {
 
   this.updateSize = function() {
 
-    var width = $(window).width() - 40,
-      height = $(window).height() - 40;
+    this.width = $(window).width() - 40;
+    this.height = $(window).height() - 40;
 
     this.svg
-      .attr("width", width)
-      .attr("height", height);
+      .attr("width", this.width)
+      .attr("height", this.height);
   };
 
   this.redraw = function() {
