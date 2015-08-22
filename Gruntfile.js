@@ -93,12 +93,12 @@ module.exports = function (grunt) {
           }
         }
       },
-      dist: {
+      /* dist: {
         options: {
           background: false,
           server: '<%= config.dist %>'
         }
-      }
+      } */
     },
 
     // Empties folders to start fresh
@@ -350,6 +350,14 @@ module.exports = function (grunt) {
           cwd: '.',
           src: 'bower_components/bootstrap-sass/assets/fonts/bootstrap/*',
           dest: '<%= config.dist %>'
+        }, {
+          expand: true,
+          dot: true,
+          cwd: '<%= config.app %>/data',
+          dest: '<%= config.dist %>/data',
+          src: [
+            '{,*/}*.json'
+          ]
         }]
       }
     },
@@ -443,7 +451,7 @@ module.exports = function (grunt) {
   ]);
 
   grunt.registerTask('default', [
-    'newer:eslint',
+    // 'newer:eslint', TODO: Repair
     'test',
     'build'
   ]);
