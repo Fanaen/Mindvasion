@@ -5,6 +5,35 @@ $headings-color: black;
 
 // -- Global --
 
+#header {
+  position: absolute;
+  top: 35px;
+  left: 25px;
+
+  #level, #sublevel {
+    display: inline-block;
+    margin-right: 20px;
+    margin-bottom: 5px;
+
+    font-weight: 900;
+    font-size: xx-large;
+    color: rgb(75, 190, 255);
+  }
+
+  #sublevel {
+    font-weight: 500;
+    color: rgba(61, 180, 255, 0.52);
+  }
+
+  #desc {
+    border-top: 1px solid rgba(61, 180, 255, 0.52);;
+    padding-top: 10px;
+
+    color: rgba(61, 180, 255, 0.52);
+    font-size: large;
+  }
+}
+
 #sidebar {
   position: absolute;
   top: 35px;

@@ -58,8 +58,8 @@ var Network = function () {
       "translate(" + d3.event.translate + ")" + " scale(" + d3.event.scale + ")");
   };
 
-  this.loadData = function() {
-    d3.json("data/graph-dummy.json", function(error, graph) {
+  this.loadData = function(level, sublevel) {
+    d3.json("data/level-"+ level +"-"+ sublevel +".json", function(error, graph) {
       if (error) throw error;
 
       Network.getInstance().updateData(graph);
@@ -130,6 +130,8 @@ var Network = function () {
           return Network.getInstance().vis.selectAll(".node").filter(function(df, i) { return d.node == i; }).attr("cy");
         })
     });
+
+    Game.getInstance().loadData(graph);
   };
 };
 

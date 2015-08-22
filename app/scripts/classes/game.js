@@ -9,6 +9,7 @@ var Game = function () {
 
   // -- Attributes --
   this.selected = {};
+  this.data = {};
 
   // -- Methods --
   this.init = function() {
@@ -23,7 +24,16 @@ var Game = function () {
   this.selectNode = function(data) {
     $('#panel-body-informations').collapse();
     $('#infoName').text(data.name);
-  }
+  };
+
+  this.loadData = function(data) {
+    this.data = data;
+
+    // Change the breadcrumb --
+    $('#level').text(data.level);
+    $('#sublevel').text(data.sublevel);
+    $('#desc').text(data.desc);
+  };
 
   this.onFear = function() {
 

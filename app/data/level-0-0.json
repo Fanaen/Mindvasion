@@ -1,0 +1,20 @@
+{
+  "level": "Tutorial",
+  "sublevel": "First step",
+  "desc": "If you can't handle this, you are a lost cause.",
+  "factions":[
+    {"id": 1, "name": "Ennemy"}
+  ],
+  "nodes":[
+    {"id": 0, "name":"A minion", "faction":1, "dominated":1, "state":"love", "resistance":"f-0:l-0"},
+    {"id": 1, "name":"An ennemy", "faction":1, "dominated":-1, "state":"calm", "resistance":"f-0:l-0"},
+    {"id": 2, "name":"Another ennemy", "faction":1, "dominated":-1, "state":"calm", "resistance":"f-0:l-0"}
+  ],
+  "links":[
+    {"source":1,"target":0, "value":1},
+    {"source":2,"target":1, "value":1}
+  ],
+  "ghosts":[
+    {"id": "player", "name": "Player", "node": 0}
+  ]
+}
