@@ -6,7 +6,7 @@
     {"id": 1, "name": "Ennemy"}
   ],
   "nodes":[
-    {"id": 0, "name":"A minion", "faction":1, "dominated":1, "state":"love", "resistance":"f-0:l-0"},
+    {"id": 0, "name":"A minion", "faction":1, "dominated":0, "state":"love", "resistance":"f-0:l-0"},
     {"id": 1, "name":"An ennemy", "faction":1, "dominated":-1, "state":"calm", "resistance":"f-0:l-0"},
     {"id": 2, "name":"Another ennemy", "faction":1, "dominated":-1, "state":"calm", "resistance":"f-0:l-0"}
   ],

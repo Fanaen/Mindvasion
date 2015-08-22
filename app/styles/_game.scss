@@ -28,7 +28,7 @@ body {
 
 .node {
   stroke: $svg-bg;
-  stroke-width: 1.5px;
+  stroke-width: 2px;
 }
 
 .link {
@@ -37,8 +37,6 @@ body {
 }
 
 .ghost {
-  stroke: white;
-  stroke-width: 3px;
-  fill-opacity: 0;
+  fill: #E74C3C;
 }
 
