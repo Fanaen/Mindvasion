@@ -10,6 +10,7 @@ var Game = function () {
   // -- Attributes --
   this.selected = {};
   this.data = {};
+  this.currentNode = {};
 
   // -- Methods --
   this.init = function() {
@@ -29,10 +30,12 @@ var Game = function () {
   this.loadData = function(data) {
     this.data = data;
 
-    // Change the breadcrumb --
+    // Change headers --
     $('#level').text(data.level);
     $('#sublevel').text(data.sublevel);
     $('#desc').text(data.desc);
+
+
   };
 
   this.onFear = function() {

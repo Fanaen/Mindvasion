@@ -79,16 +79,49 @@ var Network = function () {
       .links(graph.links)
       .start();
 
-    // Update links --
-    var link = this.vis.selectAll(".link")
-      .data(graph.links)
+    // Update items --
+    this
+      .updateLinks(graph.links)
+      .updateNodes(graph.nodes)
+      .updateGhosts(graph.ghosts);
+
+    // Update the locations with the Force, Luke --
+    this.force.on("tick", function() {
+      Network.getInstance()
+        .updateLinksLocation()
+        .updateNodesLocation()
+        .updateGhostsLocation();
+    });
+
+    // Transfer to Game engine --
+    Game.getInstance().loadData(graph);
+  };
+
+  // Links --
+
+  this.updateLinks = function(data) {
+    this.vis.selectAll(".link")
+      .data(data)
       .enter().append("line")
       .attr("class", "link")
       .style("stroke-width", function(d) { return Math.sqrt(d.value); });
+    return this;
+  }
 
-    // Update nodes --
+  this.updateLinksLocation = function() {
+    this.vis.selectAll(".link")
+      .attr("x1", function(d) { return d.source.x; })
+      .attr("y1", function(d) { return d.source.y; })
+      .attr("x2", function(d) { return d.target.x; })
+      .attr("y2", function(d) { return d.target.y; });
+    return this;
+  };
+
+  // Nodes --
+
+  this.updateNodes = function(data) {
     var node = this.vis.selectAll(".node")
-      .data(graph.nodes);
+      .data(data);
 
     var node_enter = node.enter().append("circle")
       .attr("class", "node")
@@ -116,35 +149,7 @@ var Network = function () {
     node_enter.append("title")
       .text(function(d) { return d.name; });
 
-    // Update nodes --
-    var ghost = this.vis.selectAll(".ghost")
-      .data(graph.ghosts)
-      .enter().append("rect")
-      .attr("class", "ghost")
-      .attr("width", 20)
-      .attr("height", 20);
-
-    this.force.on("tick", function() {
-      link
-        .attr("x1", function(d) { return d.source.x; })
-        .attr("y1", function(d) { return d.source.y; })
-        .attr("x2", function(d) { return d.target.x; })
-        .attr("y2", function(d) { return d.target.y; });
-
-      node
-        .attr("cx", function(d) { return d.x; })
-        .attr("cy", function(d) { return d.y; });
-
-      ghost
-        .attr("x", function(d) {
-          return Network.getInstance().vis.selectAll(".node").filter(function(df, i) { return d.node == df.id; }).attr("cx") - 34;
-        })
-        .attr("y", function(d) {
-          return Network.getInstance().vis.selectAll(".node").filter(function(df, i) { return d.node == df.id; }).attr("cy") - 10 ;
-        })
-    });
-
-    Game.getInstance().loadData(graph);
+    return this;
   };
 
   this.restyleNodes = function(node) {
@@ -155,7 +160,47 @@ var Network = function () {
     node
       .attr("fill", fill)
       .style("stroke", function(d) { return d.selected ? "#000" : "#263d41"; } );
-  }
+  };
+
+  this.updateNodesLocation = function() {
+    this.vis.selectAll(".node")
+      .attr("cx", function(d) { return d.x; })
+      .attr("cy", function(d) { return d.y; });
+    return this;
+  };
+
+  // Ghosts --
+  this.updateGhosts = function(data) {
+    this.setGhosts(data)
+      .enter().append("rect")
+      .attr("class", "ghost")
+      .attr("width", 20)
+      .attr("height", 20);
+  };
+
+  this.updateGhostsLocation = function() {
+    this.vis.selectAll(".ghost")
+      .attr("x", function(d) {
+        return Network.getInstance().vis.selectAll(".node")
+            .filter(function(df, i) { return d.node == df.id; })
+            .attr("cx") - 34;
+      })
+      .attr("y", function(d) {
+        return Network.getInstance().vis.selectAll(".node")
+            .filter(function(df, i) { return d.node == df.id; })
+            .attr("cy") - 10 ;
+      });
+    return this;
+  };
+
+  // Getters & setters --
+  this.getGhosts = function() { return this.vis.selectAll(".ghost").data(); };
+  this.getLinks = function() { return this.vis.selectAll(".link").data(); };
+  this.getNodes = function() { return this.vis.selectAll(".node").data(); };
+
+  this.setGhosts = function(data) { return this.vis.selectAll(".ghost").data(data); };
+  this.setLinks = function(data) { return this.vis.selectAll(".link").data(data); };
+  this.setNodes = function(data) { return this.vis.selectAll(".node").data(data); };
 };
 
 Network.getInstance = function () { return Network._instance || new Network(); }
