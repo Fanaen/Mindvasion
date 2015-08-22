@@ -51,17 +51,23 @@ var Network = function () {
 
   this.updateData = function(graph) {
 
+    // Store data --
+    this.data = graph;
+
+    // Update physics --
     this.force
       .nodes(graph.nodes)
       .links(graph.links)
       .start();
 
+    // Update links --
     var link = this.svg.selectAll(".link")
       .data(graph.links)
       .enter().append("line")
       .attr("class", "link")
       .style("stroke-width", function(d) { return Math.sqrt(d.value); });
 
+    // Update nodes --
     var node = this.svg.selectAll(".node")
       .data(graph.nodes)
       .enter().append("circle")
@@ -73,14 +79,31 @@ var Network = function () {
     node.append("title")
       .text(function(d) { return d.name; });
 
+    // Update nodes --
+    var ghost = this.svg.selectAll(".ghost")
+      .data(graph.ghosts)
+      .enter().append("circle")
+      .attr("class", "ghost")
+      .attr("r", 13);
+
     this.force.on("tick", function() {
-      link.attr("x1", function(d) { return d.source.x; })
+      link
+        .attr("x1", function(d) { return d.source.x; })
         .attr("y1", function(d) { return d.source.y; })
         .attr("x2", function(d) { return d.target.x; })
         .attr("y2", function(d) { return d.target.y; });
 
-      node.attr("cx", function(d) { return d.x; })
+      node
+        .attr("cx", function(d) { return d.x; })
         .attr("cy", function(d) { return d.y; });
+
+      ghost
+        .attr("cx", function(d) {
+          return Network.getInstance().svg.selectAll(".node").filter(function(df, i) { return d.node == i; }).attr("cx");
+        })
+        .attr("cy", function(d) {
+          return Network.getInstance().svg.selectAll(".node").filter(function(df, i) { return d.node == i; }).attr("cy");
+        })
     });
   };
 };
