@@ -1,3 +1,23 @@
+
+// -- Variables --
+
+$svg-bg: #263d41;
+$body-bg: darken($svg-bg, 10%);
+
+// -- General --
+
+body {
+  background-color: $body-bg;
+
+  svg {
+    margin: auto;
+
+    background: $svg-bg;
+  }
+}
+
+// -- SVG --
+
 .node {
   stroke: #fff;
   stroke-width: 1.5px;
@@ -7,3 +27,5 @@
   stroke: #999;
   stroke-opacity: .6;
 }
+
+
