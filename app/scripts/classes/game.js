@@ -12,14 +12,16 @@ var Game = function () {
   this.data = {};
   this.currentNode = {};
 
-  // -- Methods --
+    // -- Methods --
   this.init = function() {
 
     // Action buttons --
-    $('#fear').on('click', this.onFear);
-    $('#kill').on('click', this.onKill);
-    $('#love').on('click', this.onLove);
-    $('#move').on('click', this.onMove);
+    this.fearButton = $('#fear').on('click', this.onFear);
+    this.killButton = $('#kill').on('click', this.onKill);
+    this.loveButton = $('#love').on('click', this.onLove);
+    this.moveButton = $('#move').on('click', this.onMove);
+
+    this.moveButton.attr('disabled', false);
   };
 
   this.selectNode = function(data) {
