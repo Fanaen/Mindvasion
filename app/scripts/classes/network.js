@@ -91,7 +91,11 @@ var Network = function () {
       .attr("class", "node")
       .attr("r", 10)
       .style("fill", function(d) { return Network.getInstance().color(d.group); })
-      .on("click", function(d) { if (d3.event.defaultPrevented) return; /* ignore drag */ })
+      .on("click", function(d) {
+        if (d3.event.defaultPrevented) return; /* ignore drag */
+        Game.getInstance().selectNode(d);
+        console.log('Done!');
+      })
       .call(this.force.drag);
 
     // Ignore drag/zoom --

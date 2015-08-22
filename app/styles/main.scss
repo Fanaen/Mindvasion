@@ -1,6 +1,7 @@
 $icon-font-path: "../bower_components/bootstrap-sass/assets/fonts/bootstrap/";
 
 // manual:scss
+@import "mixins";
 @import "game";
 @import "sidebar";
 @import "bootswatch";

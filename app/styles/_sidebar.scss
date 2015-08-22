@@ -11,11 +11,6 @@ $headings-color: black;
   right: 10px;
   padding: 0px;
 
-  color: transparent;
-
-  div {
-  }
-
   .panel-title {
     color: $svg-bg;
     font-weight: 900;
@@ -31,5 +26,25 @@ $headings-color: black;
 #panel-body-controls {
   button {
     width: 100%;
+  }
+}
+
+// -- Information --
+
+#panel-body-informations {
+  color: rgb(53, 153, 219);
+
+  p  {
+    padding: 2px 10px;
+    @include border-radius(10px);
+  }
+
+  .property {
+    font-weight: bold;
+  }
+
+  .data {
+    font-weight: bold;
+    background-color: rgba(255, 255, 255, 0.07);
   }
 }
