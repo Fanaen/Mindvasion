@@ -64,6 +64,12 @@ var Network = function () {
     d3.json("data/level-"+ level +"-"+ sublevel +".json", function(error, graph) {
       if (error) throw error;
 
+      // -- Post download process --
+
+      // Add the player's faction --
+      graph.factions.push({"id": 0, "name": "Player"});
+
+      // -- Use the data --
       Network.getInstance().updateData(graph);
     });
   };
@@ -81,6 +87,7 @@ var Network = function () {
 
     // Update items --
     this
+      .updateFactions(graph.factions)
       .updateLinks(graph.links)
       .updateNodes(graph.nodes)
       .updateGhosts(graph.ghosts);
@@ -176,6 +183,7 @@ var Network = function () {
       .attr("class", "ghost")
       .attr("width", 20)
       .attr("height", 20);
+    return this;
   };
 
   this.updateGhostsLocation = function() {
@@ -193,14 +201,37 @@ var Network = function () {
     return this;
   };
 
-  // Getters & setters --
-  this.getGhosts = function() { return this.vis.selectAll(".ghost").data(); };
-  this.getLinks = function() { return this.vis.selectAll(".link").data(); };
-  this.getNodes = function() { return this.vis.selectAll(".node").data(); };
+  // Factions --
+  this.updateFactions = function(data) {
+    var factions = this.setFactions(data);
 
-  this.setGhosts = function(data) { return this.vis.selectAll(".ghost").data(data); };
-  this.setLinks = function(data) { return this.vis.selectAll(".link").data(data); };
-  this.setNodes = function(data) { return this.vis.selectAll(".node").data(data); };
+    var factions_enter = factions.enter()
+      .append("g")
+        .attr("class", "faction")
+        .attr("transform", function(d, i) { return "translate(20,"+ (Network.getInstance().height - i * 30 - 50) +")"; });
+
+    factions_enter.append("rect")
+      .attr("width", 100)
+      .attr("height", 25)
+      .attr("fill", function(d) { return d.id == 0 ? "#E74C3C" : Network.getInstance().color(d.group); });
+
+    factions_enter.append("text")
+      .attr("x", 10)
+      .attr("y", 20)
+      .text(function(d) { return d.name; });
+    return this;
+  };
+
+  // Getters & setters --
+  this.getFactions  = function() { return this.svg.selectAll(".faction").data(); };
+  this.getGhosts    = function() { return this.vis.selectAll(".ghost").data(); };
+  this.getLinks     = function() { return this.vis.selectAll(".link").data(); };
+  this.getNodes     = function() { return this.vis.selectAll(".node").data(); };
+
+  this.setFactions  = function(data) { return this.svg.selectAll(".faction").data(data); };
+  this.setGhosts    = function(data) { return this.vis.selectAll(".ghost").data(data); };
+  this.setLinks     = function(data) { return this.vis.selectAll(".link").data(data); };
+  this.setNodes     = function(data) { return this.vis.selectAll(".node").data(data); };
 };
 
 Network.getInstance = function () { return Network._instance || new Network(); }
