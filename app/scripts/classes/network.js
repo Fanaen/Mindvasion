@@ -11,8 +11,10 @@ var Network = function () {
   this.height = 500;
 
   this.svg = {};
+  this.vis = {};
   this.color = {};
   this.force = {};
+  this.zoomer = {};
 
   // -- Methods --
   this.init = function() {
@@ -20,6 +22,9 @@ var Network = function () {
     // Init the frame --
     this.svg = d3.select("body").append("svg");
     this.updateSize();
+
+    this.vis = this.svg.append("svg:g")
+      .attr('id', 'vis');
 
     this.color = d3.scale.category20();
 
@@ -29,6 +34,13 @@ var Network = function () {
       .linkDistance(100)
       .size([this.width, this.height]);
 
+    // Zoom system --
+    this.zoomer = d3.behavior.zoom()
+      .scaleExtent([0.7,3])
+      //.on("zoomstart", zoomstart)
+      .on("zoom", this.redraw);
+
+    this.svg.call(this.zoomer);
   };
 
   this.updateSize = function() {
@@ -39,6 +51,11 @@ var Network = function () {
     this.svg
       .attr("width", width)
       .attr("height", height);
+  };
+
+  this.redraw = function() {
+    Network.getInstance().vis.attr("transform",
+      "translate(" + d3.event.translate + ")" + " scale(" + d3.event.scale + ")");
   };
 
   this.loadData = function() {
@@ -61,26 +78,30 @@ var Network = function () {
       .start();
 
     // Update links --
-    var link = this.svg.selectAll(".link")
+    var link = this.vis.selectAll(".link")
       .data(graph.links)
       .enter().append("line")
       .attr("class", "link")
       .style("stroke-width", function(d) { return Math.sqrt(d.value); });
 
     // Update nodes --
-    var node = this.svg.selectAll(".node")
+    var node = this.vis.selectAll(".node")
       .data(graph.nodes)
       .enter().append("circle")
       .attr("class", "node")
       .attr("r", 10)
       .style("fill", function(d) { return Network.getInstance().color(d.group); })
+      .on("click", function(d) { if (d3.event.defaultPrevented) return; /* ignore drag */ })
       .call(this.force.drag);
+
+    // Ignore drag/zoom --
+    node.on("mousedown.zoom", function() {d3.event.stopPropagation(); });
 
     node.append("title")
       .text(function(d) { return d.name; });
 
     // Update nodes --
-    var ghost = this.svg.selectAll(".ghost")
+    var ghost = this.vis.selectAll(".ghost")
       .data(graph.ghosts)
       .enter().append("circle")
       .attr("class", "ghost")
@@ -99,10 +120,10 @@ var Network = function () {
 
       ghost
         .attr("cx", function(d) {
-          return Network.getInstance().svg.selectAll(".node").filter(function(df, i) { return d.node == i; }).attr("cx");
+          return Network.getInstance().vis.selectAll(".node").filter(function(df, i) { return d.node == i; }).attr("cx");
         })
         .attr("cy", function(d) {
-          return Network.getInstance().svg.selectAll(".node").filter(function(df, i) { return d.node == i; }).attr("cy");
+          return Network.getInstance().vis.selectAll(".node").filter(function(df, i) { return d.node == i; }).attr("cy");
         })
     });
   };
