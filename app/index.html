@@ -30,8 +30,8 @@
 
     <div class="col-lg-3" id="sidebar">
 
-      <div class="panel panel-info" data-toggle="collapse" data-target="#panel-body-informations">
-        <div class="panel-heading">
+      <div class="panel panel-info">
+        <div class="panel-heading" data-toggle="collapse" data-target="#panel-body-informations">
           <h3 class="panel-title">Informations</h3>
         </div>
         <div id="panel-body-informations" class="panel-body collapse">
@@ -39,12 +39,22 @@
         </div>
       </div>
 
-      <div class="panel panel-warning" data-toggle="collapse" data-target="#panel-body-controls">
-        <div class="panel-heading">
+      <div class="panel panel-warning">
+        <div class="panel-heading" data-toggle="collapse" data-target="#panel-body-controls">
           <h3 class="panel-title">Controls</h3>
         </div>
-        <div id="panel-body-controls" class="panel-body collapse">
-          Panel content
+        <div id="panel-body-controls" class="panel-body collapse in">
+
+          <!-- Action buttons -->
+          <div class="row" style="margin-bottom: 25px;">
+            <div class="col-xs-6"><button type="button" id="move" disabled="true"  class="btn btn-info">Move</button></div>
+            <div class="col-xs-6"><button type="button" id="love" disabled="true"  class="btn btn-success">Love</button></div>
+          </div>
+          <div class="row">
+            <div class="col-xs-6"><button type="button" id="fear" disabled="true" class="btn btn-warning">Fear</button></div>
+            <div class="col-xs-6"><button type="button" id="kill" disabled="true"  class="btn btn-danger">Kill</button></div>
+          </div>
+
         </div>
       </div>
 

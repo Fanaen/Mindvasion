@@ -3,7 +3,7 @@
 
 $headings-color: black;
 
-// -- Properties --
+// -- Global --
 
 #sidebar {
   position: absolute;
@@ -19,5 +19,17 @@ $headings-color: black;
   .panel-title {
     color: $svg-bg;
     font-weight: 900;
+  }
+
+  button {
+    color: $svg-bg;
+  }
+}
+
+// -- Controls --
+
+#panel-body-controls {
+  button {
+    width: 100%;
   }
 }
