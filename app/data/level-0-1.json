@@ -7,11 +7,11 @@
     {"id": 2, "name": "Boss"}
   ],
   "nodes":[
-    {"id": 0, "name":"A minion",        "faction":1, "dominated": 0, "state":"love", "resFear":0, "resLove":0, "level":3},
-    {"id": 1, "name":"Unreachable guy", "faction":1, "dominated":-1, "state":"calm", "resFear":1, "resLove":0, "level":2},
-    {"id": 2, "name":"An ennemy",       "faction":1, "dominated":-1, "state":"calm", "resFear":1, "resLove":1, "level":2},
-    {"id": 3, "name":"Another ennemy",  "faction":1, "dominated":-1, "state":"calm", "resFear":0, "resLove":1, "level":1},
-    {"id": 3, "name":"Boss",            "faction":2, "dominated":-1, "state":"calm", "resFear":0, "resLove":1, "level":1}
+    {"id": 0, "name":"A minion",        "faction":1, "dominated": 0, "state":"love", "resFear":0, "resLove":0, "level":4},
+    {"id": 1, "name":"Unreachable guy", "faction":1, "dominated":-1, "state":"calm", "resFear":1, "resLove":0, "level":3},
+    {"id": 2, "name":"An ennemy",       "faction":1, "dominated":-1, "state":"calm", "resFear":1, "resLove":1, "level":3},
+    {"id": 3, "name":"Another ennemy",  "faction":1, "dominated":-1, "state":"calm", "resFear":0, "resLove":1, "level":2},
+    {"id": 4, "name":"Boss",            "faction":2, "dominated":-1, "state":"calm", "resFear":0, "resLove":1, "level":1}
   ],
   "links":[
     {"source":0,"target":2, "value":1},

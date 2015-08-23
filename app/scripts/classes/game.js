@@ -86,6 +86,7 @@ var Game = function () {
   this.onKill = function() {
     if(this.killPossible) {
       var network = Network.getInstance();
+      var ghostNode = network.getGhostNode();
       var ghost = network.getGhost().datum();
 
       var node = network.getSelectedNode();
@@ -95,11 +96,10 @@ var Game = function () {
       network.force.nodes().splice(index, 1); // Remove one element --
 
       // Remove link force --
-      var links = network.getLinkConnectedTo(node.datum().id).data();
-      for (var link in links) {
-        var index = network.force.links().indexOf(link);
+      var links = network.getLinkConnectedTo(node.datum().id).data().forEach(function (element, index, array) {
+        index = network.force.links().indexOf(element);
         network.force.links().splice(index, 1);
-      }
+      });
 
       // Remove links shape --
       var links = network.getLinkConnectedTo(node.datum().id).remove();
@@ -116,7 +116,7 @@ var Game = function () {
       network.force.start();
       this.updateActions();
 
-      this.selectNode(ghost);
+      this.selectNode(ghostNode);
     }
   };
 
@@ -133,7 +133,12 @@ var Game = function () {
       var link = {"source": ghostNode.datum().id, "target": node.datum().id, "value": 1}
       links.push(link);
       network.updateLinks(links);
+
       network.force.links().push(link);
+
+      console.log(network.getLinks().data());
+      console.log(network.force.links());
+
 
       Sound.getInstance().onMindControl();
       network.force.start();
