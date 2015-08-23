@@ -94,7 +94,6 @@ var Sound = function () {
   };
 
   this.onMove = function() {
-    console.log(this.soundsMute);
     if(!this.soundsMute) {
       this.sounds.volume(this.soundsVolume);
       this.sounds.play('move');

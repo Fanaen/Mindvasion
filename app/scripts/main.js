@@ -40,6 +40,11 @@ $(document).ready(function() {
     // Game system --
     var sound = Sound.getInstance();
     sound.init();
+
+    // Restart system --
+    $('#restart').on('click', function() {
+      network.loadData(level, sublevel);
+    });
   }
 
   // Load the intro --

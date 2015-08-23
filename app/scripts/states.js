@@ -7,7 +7,7 @@ function stateToString(state) {
     case "calm":
       return "Normal";
     case "fear":
-      return "Afraid of everything";
+      return "Afraid";
     case "love":
       return "In love";
     default:
