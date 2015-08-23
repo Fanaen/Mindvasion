@@ -216,7 +216,7 @@ var Game = function () {
       isReachable = this.currentNode.datum().level - 1 <= this.selectedNode.datum().level;
 
       this.movePossible = !link.empty() && this.selectedNode.datum().dominated == 0;
-      this.lovePossible = this.fearPossible = this.selectedNode.datum().dominated != 0;
+      this.lovePossible = this.fearPossible = !link.empty() && this.selectedNode.datum().dominated != 0;
       this.killPossible = !link.empty() && this.currentNode.datum().dominated == 0;
       this.swearPossible = !hasParent && this.currentNode.datum().dominated == 0 && isReachable;
     }
