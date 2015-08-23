@@ -37,8 +37,8 @@ var Game = function () {
     $('#infoName').text(data.name);
     $('#infoState').text(stateToString(data.state));
     $('#infoDominated').text(dominatedToString(data.dominated));
-    $('#infoResistanceFear').text(resFearToString(data.resFear));
-    $('#infoResistanceLove').text(resLoveToString(data.resLove));
+    $('#infoResistanceFear').html(resFearToString(data.resFear));
+    $('#infoResistanceLove').html(resLoveToString(data.resLove));
   };
 
   this.loadData = function(data) {
@@ -50,6 +50,12 @@ var Game = function () {
     $('#desc').text(data.desc);
 
     this.updateActions();
+
+    // Information on the ghost --
+    var network = Network.getInstance();
+    var ghost = network.getGhost().datum();
+    $('#infoAttackFear').html(attFearToString(ghost.attFear));
+    $('#infoAttackLove').html(attLoveToString(ghost.attLove));
   };
 
   this.onFear = function() {

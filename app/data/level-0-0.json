@@ -1,7 +1,7 @@
 {
-  "level": "Tutorial",
-  "sublevel": "First step",
-  "desc": "If you can't handle this, you are a lost cause.",
+  "level": "1. Tutorial",
+  "sublevel": "1. Baby steps",
+  "desc": "First view of the system",
   "factions":[
     {"id": 1, "name": "Ennemy"}
   ],
@@ -15,6 +15,6 @@
     {"source":2,"target":1, "value":1}
   ],
   "ghosts":[
-    {"id": "player", "name": "Player", "nodeId": 0}
+    {"id": "player", "name": "Player", "nodeId": 0, "attLove": 0, "attFear": 0}
   ]
 }

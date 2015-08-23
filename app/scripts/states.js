@@ -28,25 +28,56 @@ function dominatedToString(dominated) {
 }
 
 function resFearToString(number) {
+  var prefix = '<span class="badge fear">'+ number +'</span>';
   if(number < 1) {
-    return "Afraid of her shadow";
+    return prefix + "Afraid of her shadow";
   }
   else if(number >= 1 && number < 3 ) {
-    return "Normal";
+    return prefix + "Normal";
   }
   else {
-    return "Fearless"
+    return prefix + "Fearless"
   }
 }
 
 function resLoveToString(number) {
+  var prefix = '<span class="badge love">'+ number +'</span>';
+
   if(number < 1) {
-    return "You have no idea";
+    return prefix + "You have no idea";
   }
   else if(number >= 1 && number < 3 ) {
-    return "Normal";
+    return prefix + "Normal";
   }
   else {
-    return "Heartless"
+    return prefix + "Heartless"
+  }
+}
+
+function attLoveToString(number) {
+  var prefix = '<span class="badge love">'+ number +'</span>';
+
+  if(number < 0) {
+    return prefix + "Repulsive";
+  }
+  else if(number >= 0 && number < 3 ) {
+    return prefix + "Attractive";
+  }
+  else {
+    return prefix + "Sexy as hell"
+  }
+}
+
+function attFearToString(number) {
+  var prefix = '<span class="badge fear">'+ number +'</span>';
+
+  if(number < 0) {
+    return prefix + "Hilarious";
+  }
+  else if(number >= 0 && number < 3 ) {
+    return prefix + "Scary";
+  }
+  else {
+    return prefix + "Horifying";
   }
 }

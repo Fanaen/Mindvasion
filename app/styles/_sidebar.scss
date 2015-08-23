@@ -65,6 +65,7 @@ $headings-color: black;
 #panel-body-controls {
   button {
     width: 100%;
+    margin-top: 15px;
 
     &[disabled] {
       background-color: #969696;
@@ -75,7 +76,8 @@ $headings-color: black;
 
 // -- Information --
 
-#panel-body-informations {
+.panel-informations {
+
   color: rgb(53, 153, 219);
 
   p  {
@@ -91,4 +93,19 @@ $headings-color: black;
     font-weight: bold;
     background-color: rgba(255, 255, 255, 0.07);
   }
+
+  .badge {
+    margin-right: 5px;
+    color: #404040;
+    &.fear {
+      background-color: #f39d14;
+    }
+    &.love {
+      background-color: #02bc8d;
+    }
+  }
+}
+
+#panel-body-informations {
+
 }
