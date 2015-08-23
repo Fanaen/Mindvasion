@@ -29,15 +29,16 @@ var Game = function () {
 
   this.selectNode = function(data) {
 
+    this.updateActions();
+
     // Display data --
+    data = data || this.selectedNode.datum();
     $('#panel-body-informations').collapse();
     $('#infoName').text(data.name);
     $('#infoState').text(stateToString(data.state));
     $('#infoDominated').text(dominatedToString(data.dominated));
     $('#infoResistanceFear').text(resFearToString(data.resFear));
     $('#infoResistanceLove').text(resLoveToString(data.resLove));
-
-    this.updateActions();
   };
 
   this.loadData = function(data) {
@@ -52,7 +53,17 @@ var Game = function () {
   };
 
   this.onFear = function() {
+    if(this.fearPossible) {
+      var network = Network.getInstance();
+      var ghostNode = network.getGhostNode();
+      var datum = ghostNode.datum();
 
+      datum.dominated = 0;
+      datum.state = "fear";
+
+      network.restyleNodes();
+      this.selectNode();
+    }
   };
 
   this.onKill = function() {
@@ -60,7 +71,17 @@ var Game = function () {
   };
 
   this.onLove = function() {
+    if(this.lovePossible) {
+      var network = Network.getInstance();
+      var ghostNode = network.getGhostNode();
+      var datum = ghostNode.datum();
 
+      datum.dominated = 0;
+      datum.state = "love";
+
+      network.restyleNodes();
+      this.selectNode();
+    }
   };
 
   this.onMove = function() {

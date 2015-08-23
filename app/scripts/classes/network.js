@@ -150,8 +150,7 @@ var Network = function () {
   // Nodes --
 
   this.updateNodes = function(data) {
-    var node = this.vis.selectAll(".node")
-      .data(data);
+    var node = this.getNodes().data(data);
 
     var node_enter = node.enter().append("circle")
       .attr("class", "node")
@@ -183,6 +182,8 @@ var Network = function () {
   };
 
   this.restyleNodes = function(node) {
+    node = node || this.getNodes();
+
     var fill = function(d) {
       if(d.dominated == 0) { return "#E74C3C"; }
       else { return Network.getInstance().color(d.group); } }
@@ -193,7 +194,7 @@ var Network = function () {
   };
 
   this.updateNodesLocation = function() {
-    this.vis.selectAll(".node")
+    this.getNodes()
       .attr("cx", function(d) { return d.x; })
       .attr("cy", function(d) { return d.y; });
     return this;
@@ -201,7 +202,7 @@ var Network = function () {
 
   // Ghosts --
   this.updateGhosts = function(data) {
-    this.setGhosts(data)
+    this.getGhosts().data(data)
       .enter().append("rect")
       .attr("class", "ghost")
       .attr("width", 20)
@@ -210,14 +211,14 @@ var Network = function () {
   };
 
   this.updateGhostsLocation = function() {
-    this.vis.selectAll(".ghost")
+    this.getGhost()
       .attr("x", function(d) {
-        return Network.getInstance().vis.selectAll(".node")
+        return Network.getInstance().getNodes()
             .filter(function(df, i) { return d.nodeId == df.id; })
             .attr("cx") - 34;
       })
       .attr("y", function(d) {
-        return Network.getInstance().vis.selectAll(".node")
+        return Network.getInstance().getNodes()
             .filter(function(df, i) { return d.nodeId == df.id; })
             .attr("cy") - 10 ;
       });
@@ -226,7 +227,7 @@ var Network = function () {
 
   // Factions --
   this.updateFactions = function(data) {
-    var factions = this.setFactions(data);
+    var factions = this.getFactions().data(data);
 
     var factions_enter = factions.enter()
       .append("g")
@@ -246,41 +247,36 @@ var Network = function () {
   };
 
   // Getters & setters --
-  this.getFactions  = function() { return this.svg.selectAll(".faction").data(); };
-  this.getGhosts    = function() { return this.vis.selectAll(".ghost").data(); };
-  this.getLinks     = function() { return this.vis.selectAll(".link").data(); };
-  this.getNodes     = function() { return this.vis.selectAll(".node").data(); };
-
-  this.setFactions  = function(data) { return this.svg.selectAll(".faction").data(data); };
-  this.setGhosts    = function(data) { return this.vis.selectAll(".ghost").data(data); };
-  this.setLinks     = function(data) { return this.vis.selectAll(".link").data(data); };
-  this.setNodes     = function(data) { return this.vis.selectAll(".node").data(data); };
+  this.getFactions  = function() { return this.svg.selectAll(".faction"); };
+  this.getGhosts    = function() { return this.vis.selectAll(".ghost"); };
+  this.getLinks     = function() { return this.vis.selectAll(".link"); };
+  this.getNodes     = function() { return this.vis.selectAll(".node"); };
 
   this.getGhost = function(id) {
     id = id || "player";
-    return this.vis.selectAll(".ghost").filter(function (d,i) { return d.id === id; });
+    return this.getGhosts().filter(function (d,i) { return d.id === id; });
   };
 
   this.getGhostNode = function(id) {
     id = id || "player";
     var ghost = this.getGhost(id).datum();
-    return this.vis.selectAll(".node").filter(function (d,i) { return d.id === ghost.nodeId; });
+    return this.getNodes().filter(function (d,i) { return d.id === ghost.nodeId; });
   };
 
   this.getFaction = function(id) {
-    return this.svg.selectAll(".faction").filter(function (d,i) { return d.id === id; });
+    return this.getFactions().filter(function (d,i) { return d.id === id; });
   };
 
   this.getNode = function(id) {
-    return this.vis.selectAll(".node").filter(function (d,i) { return d.id === id; });
+    return this.getNodes().filter(function (d,i) { return d.id === id; });
   }
 
   this.getSelectedNode = function() {
-    return this.vis.selectAll(".node").filter(function (d,i) { return d.selectedNode == true; });
+    return this.getNodes().filter(function (d,i) { return d.selectedNode == true; });
   }
 
   this.getLinkBetweenNodes = function(id1, id2) {
-    return this.vis.selectAll(".link").filter(function (d,i) {
+    return this.getLinks().filter(function (d,i) {
       return (d.source.id == id1 && d.target.id == id2) || (d.target.id == id1 && d.source.id == id2);
     });
   };
