@@ -33,7 +33,7 @@ var Sound = function () {
     }
 
     this.loops.push(new Howl({
-      urls: ['sound/loop1.mp3'],
+      urls: ['sound/loop1.mp3', 'sound/loop1.ogg'],
       buffer: true,
       onend: function() {
         Sound.getInstance().newTrack();
@@ -41,7 +41,7 @@ var Sound = function () {
     }));
 
     this.loops.push(new Howl({
-      urls: ['sound/loop2.mp3'],
+      urls: ['sound/loop2.mp3', 'sound/loop2.ogg'],
       buffer: true,
       onend: function() {
         Sound.getInstance().newTrack();
@@ -84,28 +84,28 @@ var Sound = function () {
   };
 
   this.onMove = function() {
-    if(this.soundsMute) {
+    if(!this.soundsMute) {
       this.sounds.volume(this.soundsVolume);
       this.sounds.play('move');
     }
   };
 
   this.onWin = function() {
-    if(this.soundsMute) {
+    if(!this.soundsMute) {
       this.sounds.volume(this.soundsVolume);
       this.sounds.play('win');
     }
   };
 
   this.onError = function() {
-    if(this.soundsMute) {
+    if(!this.soundsMute) {
       this.sounds.volume(this.soundsVolume);
       this.sounds.play('error');
     }
   };
 
   this.onMindControl = function() {
-    if(this.soundsMute) {
+    if(!this.soundsMute) {
       this.sounds.volume(this.soundsVolume);
       this.sounds.play('mindcontrol');
     }

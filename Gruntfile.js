@@ -367,7 +367,8 @@ module.exports = function (grunt) {
           dest: '<%= config.dist %>/sound',
           src: [
             '{,*/}*.mp3',
-            '{,*/}*.ogg'
+            '{,*/}*.ogg',
+            '{,*/}*.wav'
           ]
         }]
       }
