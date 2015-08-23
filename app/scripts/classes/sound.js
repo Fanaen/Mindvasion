@@ -15,19 +15,28 @@ var Sound = function () {
   this.currentLoopId = 0;
   this.currentLoop = {};
   this.loopVolume = 0.5;
+  this.loopMute = false;
 
   this.sounds = {};
   this.soundsVolume = 0.5;
+  this.soundsMute = false;
 
 
   // -- Methods --
   this.init = function() {
 
+    if(typeof(Storage) !== "undefined") {
+      if(localStorage.getItem("loopMute") === "true")
+        this.loopMute = true;
+      if(localStorage.getItem("soundsMute") === "true")
+        this.soundsMute = true;
+    }
+
     this.loops.push(new Howl({
       urls: ['sound/loop1.mp3'],
       buffer: true,
       onend: function() {
-        Game.getInstance().newTrack();
+        Sound.getInstance().newTrack();
       }
     }));
 
@@ -35,7 +44,7 @@ var Sound = function () {
       urls: ['sound/loop2.mp3'],
       buffer: true,
       onend: function() {
-        Game.getInstance().newTrack();
+        Sound.getInstance().newTrack();
       }
     }));
 
@@ -52,6 +61,16 @@ var Sound = function () {
     });
 
     this.newTrack();
+
+    // Actions --
+    $('#soundsMute').on('click', function() {
+      var sound = Sound.getInstance();
+      sound.setSoundMute(!sound.soundsMute);
+    })
+    $('#loopMute').on('click', function() {
+      var sound = Sound.getInstance();
+      sound.setLoopMute(!sound.loopMute);
+    })
   };
 
   this.newTrack = function() {
@@ -59,27 +78,60 @@ var Sound = function () {
     console.log(this.currentLoopId);
     this.currentLoop = this.loops[this.currentLoopId];
     this.currentLoop.volume(this.loopVolume);
-    this.currentLoop.play();
+
+    if(!this.loopMute)
+      this.currentLoop.play();
   };
 
   this.onMove = function() {
-    this.sounds.volume(this.soundsVolume);
-    this.sounds.play('move');
+    if(this.soundsMute) {
+      this.sounds.volume(this.soundsVolume);
+      this.sounds.play('move');
+    }
   };
 
   this.onWin = function() {
-    this.sounds.volume(this.soundsVolume);
-    this.sounds.play('win');
+    if(this.soundsMute) {
+      this.sounds.volume(this.soundsVolume);
+      this.sounds.play('win');
+    }
   };
 
   this.onError = function() {
-    this.sounds.volume(this.soundsVolume);
-    this.sounds.play('error');
+    if(this.soundsMute) {
+      this.sounds.volume(this.soundsVolume);
+      this.sounds.play('error');
+    }
   };
 
   this.onMindControl = function() {
-    this.sounds.volume(this.soundsVolume);
-    this.sounds.play('mindcontrol');
+    if(this.soundsMute) {
+      this.sounds.volume(this.soundsVolume);
+      this.sounds.play('mindcontrol');
+    }
+  };
+
+  // -- Getters & setters --
+  this.setSoundMute = function(boolean) {
+    if(typeof(Storage) !== "undefined") {
+      localStorage.setItem("soundsMute", boolean ? "true" : "false");
+    }
+
+    this.soundsMute = boolean;
+  };
+
+  this.setLoopMute = function(boolean) {
+    if(typeof(Storage) !== "undefined") {
+      localStorage.setItem("loopMute", boolean ? "true" : "false");
+    }
+
+    this.loopMute = boolean;
+
+    if(this.loopMute) {
+      this.currentLoop.pause();
+    } else {
+      this.currentLoop.play();
+    }
   };
 };
 
