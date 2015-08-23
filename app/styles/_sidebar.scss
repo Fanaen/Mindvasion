@@ -65,6 +65,11 @@ $headings-color: black;
 #panel-body-controls {
   button {
     width: 100%;
+
+    &[disabled] {
+      background-color: #969696;
+      border-color: #969696;
+    }
   }
 }
 
