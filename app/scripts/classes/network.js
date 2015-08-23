@@ -281,6 +281,11 @@ var Network = function () {
     });
   };
 
+  this.getLinkConnectedTo = function(id) {
+    return this.getLinks().filter(function (d,i) {
+      return d.source.id == id || d.target.id == id;
+    });
+  }
 };
 
 Network.getInstance = function () { return Network._instance || new Network(); }

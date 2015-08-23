@@ -82,7 +82,35 @@ var Game = function () {
   };
 
   this.onKill = function() {
+    if(this.killPossible) {
+      var network = Network.getInstance();
+      var ghost = network.getGhost().datum();
 
+      var node = network.getSelectedNode();
+
+      // Remove node force --
+      var index = network.force.nodes().indexOf(node.datum());
+      network.force.nodes().splice(index, 1); // Remove one element --
+
+      // Remove link force --
+      var links = network.getLinkConnectedTo(node.datum().id).data();
+      for (var link in links) {
+        var index = network.force.links().indexOf(link);
+        network.force.links().splice(index, 1);
+      }
+
+      // Remove links shape --
+      var links = network.getLinkConnectedTo(node.datum().id).remove();
+
+      // Remove the shape --
+      node.remove();
+
+      Sound.getInstance().onMindControl();
+      network.force.start();
+      this.updateActions();
+
+      this.selectNode(ghost);
+    }
   };
 
   this.onLove = function() {
@@ -141,13 +169,16 @@ var Game = function () {
       var link = network.getLinkBetweenNodes(this.selectedNode.datum().id, this.currentNode.datum().id);
 
     // Register actions --
-    this.movePossible = link != undefined && !link.empty() && this.currentNode.datum().dominated == 0;
+    this.movePossible = link != undefined && !link.empty() &&
+      (this.currentNode.datum().dominated == 0 || this.selectedNode.datum().dominated == 0);
+    this.killPossible = link != undefined && !link.empty() && this.currentNode.datum().dominated == 0;
     this.lovePossible = this.fearPossible = this.currentNode.datum().dominated != 0;
 
     // Update buttons
     this.moveButton.attr('disabled', !this.movePossible);
     this.loveButton.attr('disabled', !this.lovePossible);
     this.fearButton.attr('disabled', !this.fearPossible);
+    this.killButton.attr('disabled', !this.killPossible);
   };
 
   this.checkVictory = function() {
