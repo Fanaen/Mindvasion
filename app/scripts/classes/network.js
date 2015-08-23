@@ -9,7 +9,7 @@ var Network = function () {
   // -- Attributes --
   this.width = 960;
   this.height = 500;
-  this.selected = undefined;
+  this.selectedNode = undefined;
 
   this.svg = {};
   this.vis = {};
@@ -160,9 +160,9 @@ var Network = function () {
 
         // Selection system --
         var network = Network.getInstance();
-        if(network.selected != undefined) network.selected.selected = false;
-        d.selected = true;
-        network.selected = d;
+        if(network.selectedNode != undefined) network.selectedNode.selectedNode = false;
+        d.selectedNode = true;
+        network.selectedNode = d;
         network.restyleNodes(node);
 
         if (d3.event.defaultPrevented) return; /* ignore drag */
@@ -189,7 +189,7 @@ var Network = function () {
 
     node
       .attr("fill", fill)
-      .style("stroke", function(d) { return d.selected ? "#000" : "#263d41"; } );
+      .style("stroke", function(d) { return d.selectedNode ? "#000" : "#263d41"; } );
   };
 
   this.updateNodesLocation = function() {
@@ -213,12 +213,12 @@ var Network = function () {
     this.vis.selectAll(".ghost")
       .attr("x", function(d) {
         return Network.getInstance().vis.selectAll(".node")
-            .filter(function(df, i) { return d.node == df.id; })
+            .filter(function(df, i) { return d.nodeId == df.id; })
             .attr("cx") - 34;
       })
       .attr("y", function(d) {
         return Network.getInstance().vis.selectAll(".node")
-            .filter(function(df, i) { return d.node == df.id; })
+            .filter(function(df, i) { return d.nodeId == df.id; })
             .attr("cy") - 10 ;
       });
     return this;
@@ -255,6 +255,36 @@ var Network = function () {
   this.setGhosts    = function(data) { return this.vis.selectAll(".ghost").data(data); };
   this.setLinks     = function(data) { return this.vis.selectAll(".link").data(data); };
   this.setNodes     = function(data) { return this.vis.selectAll(".node").data(data); };
+
+  this.getGhost = function(id) {
+    id = id || "player";
+    return this.vis.selectAll(".ghost").filter(function (d,i) { return d.id === id; });
+  };
+
+  this.getGhostNode = function(id) {
+    id = id || "player";
+    var ghost = this.getGhost(id).datum();
+    return this.vis.selectAll(".node").filter(function (d,i) { return d.id === ghost.nodeId; });
+  };
+
+  this.getFaction = function(id) {
+    return this.svg.selectAll(".faction").filter(function (d,i) { return d.id === id; });
+  };
+
+  this.getNode = function(id) {
+    return this.vis.selectAll(".node").filter(function (d,i) { return d.id === id; });
+  }
+
+  this.getSelectedNode = function() {
+    return this.vis.selectAll(".node").filter(function (d,i) { return d.selectedNode == true; });
+  }
+
+  this.getLinkBetweenNodes = function(id1, id2) {
+    return this.vis.selectAll(".link").filter(function (d,i) {
+      return (d.source.id == id1 && d.target.id == id2) || (d.target.id == id1 && d.source.id == id2);
+    });
+  };
+
 };
 
 Network.getInstance = function () { return Network._instance || new Network(); }
