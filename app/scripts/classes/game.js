@@ -57,21 +57,27 @@ var Game = function () {
     if(this.fearPossible) {
       var network = Network.getInstance();
       var ghostNode = network.getGhostNode();
-      var datum = ghostNode.datum();
+      var ghost = network.getGhost().datum();
+      var node = ghostNode.datum();
 
-      datum.dominated = 0;
-      datum.state = "fear";
+      if(ghost.attFear >= node.resFear) {
+        node.dominated = 0;
+        node.state = "fear";
 
-      network.restyleNodes();
-      this.increaseLevelFear();
+        network.restyleNodes();
+        this.increaseLevelFear();
 
-      if(this.checkVictory()) {
-        Sound.getInstance().onWin();
-      } else {
-        Sound.getInstance().onMindControl();
+        if (this.checkVictory()) {
+          Sound.getInstance().onWin();
+        } else {
+          Sound.getInstance().onMindControl();
+        }
+
+        this.selectNode();
       }
-
-      this.selectNode();
+      else {
+        Sound.getInstance().onError();
+      }
     }
   };
 
@@ -102,7 +108,6 @@ var Game = function () {
         this.selectNode();
       }
       else {
-        console.log('error');
         Sound.getInstance().onError();
       }
     }
