@@ -57,7 +57,7 @@ var Sound = function () {
       urls: ['sound/sounds.ogg', 'sound/sounds.wav'],
       volume: 0.5,
       sprite: {
-        error: [0, 300],
+        error: [0, 400],
         mindcontrol: [420, 630],
         move: [1405, 95],
         win: [1950, 950]

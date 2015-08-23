@@ -50,12 +50,7 @@ var Game = function () {
     $('#desc').text(data.desc);
 
     this.updateActions();
-
-    // Information on the ghost --
-    var network = Network.getInstance();
-    var ghost = network.getGhost().datum();
-    $('#infoAttackFear').html(attFearToString(ghost.attFear));
-    $('#infoAttackLove').html(attLoveToString(ghost.attLove));
+    this.updateInfoGhost();
   };
 
   this.onFear = function() {
@@ -68,6 +63,7 @@ var Game = function () {
       datum.state = "fear";
 
       network.restyleNodes();
+      this.increaseLevelFear();
 
       if(this.checkVictory()) {
         Sound.getInstance().onWin();
@@ -87,20 +83,28 @@ var Game = function () {
     if(this.lovePossible) {
       var network = Network.getInstance();
       var ghostNode = network.getGhostNode();
-      var datum = ghostNode.datum();
+      var ghost = network.getGhost().datum();
+      var node = ghostNode.datum();
 
-      datum.dominated = 0;
-      datum.state = "love";
+      if(ghost.attLove >= node.resLove) {
+        node.dominated = 0;
+        node.state = "love";
 
-      network.restyleNodes();
+        network.restyleNodes();
+        this.increaseLevelLove();
 
-      if(this.checkVictory()) {
-        Sound.getInstance().onWin();
-      } else {
-        Sound.getInstance().onMindControl();
+        if(this.checkVictory()) {
+          Sound.getInstance().onWin();
+        } else {
+          Sound.getInstance().onMindControl();
+        }
+
+        this.selectNode();
       }
-
-      this.selectNode();
+      else {
+        console.log('error');
+        Sound.getInstance().onError();
+      }
     }
   };
 
@@ -168,6 +172,30 @@ var Game = function () {
 
     return victory;
   };
+
+  this.increaseLevelFear = function() {
+    var network = Network.getInstance();
+    var ghost = network.getGhost().datum();
+    ghost.attFear++;
+    network.getGhost().datum(ghost);
+    $('#infoAttackFear').html(attFearToString(ghost.attFear));
+  }
+
+  this.increaseLevelLove = function() {
+    var network = Network.getInstance();
+    var ghost = network.getGhost().datum();
+    ghost.attLove++;
+    network.getGhost().datum(ghost);
+    $('#infoAttackLove').html(attLoveToString(ghost.attLove));
+  }
+
+  this.updateInfoGhost = function() {
+    // Information on the ghost --
+    var network = Network.getInstance();
+    var ghost = network.getGhost().datum();
+    $('#infoAttackFear').html(attFearToString(ghost.attFear));
+    $('#infoAttackLove').html(attLoveToString(ghost.attLove));
+  }
 };
 
 Game.getInstance = function () { return Game._instance || new Game(); }

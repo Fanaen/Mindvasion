@@ -7,8 +7,8 @@
   ],
   "nodes":[
     {"id": 0, "name":"A minion",        "faction":1, "dominated": 0, "state":"love", "resFear":0, "resLove":0},
-    {"id": 1, "name":"An ennemy",       "faction":1, "dominated":-1, "state":"calm", "resFear":0, "resLove":0},
-    {"id": 2, "name":"Another ennemy",  "faction":1, "dominated":-1, "state":"calm", "resFear":0, "resLove":0}
+    {"id": 1, "name":"An ennemy",       "faction":1, "dominated":-1, "state":"calm", "resFear":1, "resLove":0},
+    {"id": 2, "name":"Another ennemy",  "faction":1, "dominated":-1, "state":"calm", "resFear":0, "resLove":1}
   ],
   "links":[
     {"source":1,"target":0, "value":1},
