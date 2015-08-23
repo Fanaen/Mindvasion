@@ -33,9 +33,14 @@ $headings-color: black;
     font-size: large;
   }
 
-  a {
+  #controls {
     color: rgba(255, 255, 255, 0.43);
     font-size: x-small;
+
+    a {
+      color: rgba(255, 255, 255, 0.43);
+      font-size: x-small;
+    }
   }
 }
 
