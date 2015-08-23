@@ -86,16 +86,11 @@ var Game = function () {
     this.selectedNode = network.getSelectedNode();
     this.currentNode = network.getGhostNode();
 
-    // Register actions --
-    if(!this.selectedNode.empty()) {
+    if(!this.selectedNode.empty())
       var link = network.getLinkBetweenNodes(this.selectedNode.datum().id, this.currentNode.datum().id);
-      console.log(link);
-      this.movePossible = !link.empty();
-    }
-    else {
-      this.movePossible = false;
-    }
 
+    // Register actions --
+    this.movePossible = link != undefined && !link.empty();
     this.lovePossible = this.fearPossible = this.currentNode.datum().dominated != 0;
 
     // Update buttons
