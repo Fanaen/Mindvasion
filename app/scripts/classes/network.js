@@ -17,6 +17,11 @@ var Network = function () {
   this.force = {};
   this.zoomer = {};
 
+  this.glink = {};
+  this.gghosts = {};
+  this.gnode = {};
+  this.gfaction = {};
+
   // -- Methods --
   this.init = function() {
 
@@ -26,6 +31,11 @@ var Network = function () {
 
     this.vis = this.svg.append("svg:g")
       .attr('id', 'vis');
+
+    this.glink    = this.vis.append('svg:g').attr('id', 'glink');
+    this.gghosts  = this.vis.append('svg:g').attr('id', 'gghosts');
+    this.gnode    = this.vis.append('svg:g').attr('id', 'gnode');
+    this.gfaction = this.svg.append('svg:g').attr('id', 'gfaction');
 
     this.color = d3.scale.category20();
 
@@ -130,7 +140,7 @@ var Network = function () {
   // Links --
 
   this.updateLinks = function(data) {
-    this.vis.selectAll(".link")
+    this.getLinks()
       .data(data)
       .enter().append("line")
       .attr("class", "link")
@@ -139,7 +149,7 @@ var Network = function () {
   }
 
   this.updateLinksLocation = function() {
-    this.vis.selectAll(".link")
+    this.getLinks()
       .attr("x1", function(d) { return d.source.x; })
       .attr("y1", function(d) { return d.source.y; })
       .attr("x2", function(d) { return d.target.x; })
@@ -176,7 +186,7 @@ var Network = function () {
     this.restyleNodes(node);
 
     node_enter.append("title")
-      .text(function(d) { return d.name; });
+      .text(function(d) { return d.name + ', Level: '+ d.level; });
 
     return this;
   };
@@ -186,7 +196,7 @@ var Network = function () {
 
     var fill = function(d) {
       if(d.dominated == 0) { return "#E74C3C"; }
-      else { return Network.getInstance().color(d.group); } }
+      else { return Network.getInstance().color(d.faction); } }
 
     node
       .attr("fill", fill)
@@ -237,7 +247,7 @@ var Network = function () {
     factions_enter.append("rect")
       .attr("width", 100)
       .attr("height", 25)
-      .attr("fill", function(d) { return d.id == 0 ? "#E74C3C" : Network.getInstance().color(d.group); });
+      .attr("fill", function(d) { return d.id == 0 ? "#E74C3C" : Network.getInstance().color(d.id); });
 
     factions_enter.append("text")
       .attr("x", 10)
@@ -247,10 +257,10 @@ var Network = function () {
   };
 
   // Getters & setters --
-  this.getFactions  = function() { return this.svg.selectAll(".faction"); };
-  this.getGhosts    = function() { return this.vis.selectAll(".ghost"); };
-  this.getLinks     = function() { return this.vis.selectAll(".link"); };
-  this.getNodes     = function() { return this.vis.selectAll(".node"); };
+  this.getFactions  = function() { return this.gfaction.selectAll(".faction"); };
+  this.getGhosts    = function() { return this.gghosts.selectAll(".ghost"); };
+  this.getLinks     = function() { return this.glink.selectAll(".link"); };
+  this.getNodes     = function() { return this.gnode.selectAll(".node"); };
 
   this.getGhost = function(id) {
     id = id || "player";
@@ -284,6 +294,12 @@ var Network = function () {
   this.getLinkConnectedTo = function(id) {
     return this.getLinks().filter(function (d,i) {
       return d.source.id == id || d.target.id == id;
+    });
+  }
+
+  this.getLinkToParent = function(id) {
+    return this.getLinks().filter(function (d,i) {
+      return d.source.id == id;
     });
   }
 };

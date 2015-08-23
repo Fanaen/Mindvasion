@@ -12,19 +12,21 @@ var Game = function () {
   this.selectedNode = {};
   this.currentNode = {};
 
-  this.killPossible = false;
-  this.fearPossible = false;
-  this.lovePossible = false;
-  this.movePossible = false;
+  this.killPossible  = false;
+  this.fearPossible  = false;
+  this.lovePossible  = false;
+  this.movePossible  = false;
+  this.swearPossible = false;
 
     // -- Methods --
   this.init = function() {
 
     // Action buttons --
-    this.fearButton = $('#fear').on('click', function() { Game.getInstance().onFear(); });
-    this.killButton = $('#kill').on('click', function() { Game.getInstance().onKill(); });
-    this.loveButton = $('#love').on('click', function() { Game.getInstance().onLove(); });
-    this.moveButton = $('#move').on('click', function() { Game.getInstance().onMove(); });
+    this.fearButton  = $('#fear' ).on('click', function() { Game.getInstance().onFear(); });
+    this.killButton  = $('#kill' ).on('click', function() { Game.getInstance().onKill(); });
+    this.loveButton  = $('#love' ).on('click', function() { Game.getInstance().onLove(); });
+    this.moveButton  = $('#move' ).on('click', function() { Game.getInstance().onMove(); });
+    this.swearButton = $('#swear').on('click', function() { Game.getInstance().onSwear(); });
   };
 
   this.selectNode = function(data) {
@@ -105,11 +107,40 @@ var Game = function () {
       // Remove the shape --
       node.remove();
 
-      Sound.getInstance().onMindControl();
+      if (this.checkVictory()) {
+        Sound.getInstance().onWin();
+      } else {
+        Sound.getInstance().onMindControl();
+      }
+
       network.force.start();
       this.updateActions();
 
       this.selectNode(ghost);
+    }
+  };
+
+  this.onSwear = function() {
+    if(this.swearPossible) {
+      var network = Network.getInstance();
+      var ghost = network.getGhost().datum();
+      var ghostNode = network.getGhostNode();
+
+      var node = network.getSelectedNode();
+
+      // Add  the link --
+      var links = network.getLinks().data();
+      var link = {"source": ghostNode.datum().id, "target": node.datum().id, "value": 1}
+      links.push(link);
+      network.updateLinks(links);
+      network.force.links().push(link);
+
+      Sound.getInstance().onMindControl();
+      network.force.start();
+      this.updateActions();
+
+      this.selectNode();
+      console.log("Yeah!");
     }
   };
 
@@ -165,20 +196,31 @@ var Game = function () {
     this.selectedNode = network.getSelectedNode();
     this.currentNode = network.getGhostNode();
 
-    if(!this.selectedNode.empty())
+    var hasParent = true;
+    var isReachable = false;
+    if(!this.selectedNode.empty()) {
+      // Link between selection & current --
+
       var link = network.getLinkBetweenNodes(this.selectedNode.datum().id, this.currentNode.datum().id);
+
+      var parent = network.getLinkToParent(this.currentNode.datum().id);
+      hasParent = !parent.empty();
+      isReachable = this.currentNode.datum().level - 1 <= this.selectedNode.datum().level;
+    }
 
     // Register actions --
     this.movePossible = link != undefined && !link.empty() &&
       (this.currentNode.datum().dominated == 0 || this.selectedNode.datum().dominated == 0);
     this.killPossible = link != undefined && !link.empty() && this.currentNode.datum().dominated == 0;
     this.lovePossible = this.fearPossible = this.currentNode.datum().dominated != 0;
+    this.swearPossible = !hasParent && this.currentNode.datum().dominated == 0 && isReachable;
 
     // Update buttons
     this.moveButton.attr('disabled', !this.movePossible);
     this.loveButton.attr('disabled', !this.lovePossible);
     this.fearButton.attr('disabled', !this.fearPossible);
     this.killButton.attr('disabled', !this.killPossible);
+    this.swearButton.attr('disabled', !this.swearPossible);
   };
 
   this.checkVictory = function() {
