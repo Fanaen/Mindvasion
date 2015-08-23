@@ -231,7 +231,7 @@ var Game = function () {
 
   this.checkVictory = function() {
     var network = Network.getInstance();
-    var nodes = network.getNodes().filter(function (d,i) { return d.dominated != 0; });
+    var nodes = network.getNodes().filter(function (d,i) { return d.level == 1 && d.dominated != 0; });
 
     var victory = false;
     if(nodes.size() == 0) {
