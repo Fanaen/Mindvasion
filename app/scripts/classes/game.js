@@ -62,6 +62,13 @@ var Game = function () {
       datum.state = "fear";
 
       network.restyleNodes();
+
+      if(this.checkVictory()) {
+        Sound.getInstance().onWin();
+      } else {
+        Sound.getInstance().onMindControl();
+      }
+
       this.selectNode();
     }
   };
@@ -80,6 +87,13 @@ var Game = function () {
       datum.state = "love";
 
       network.restyleNodes();
+
+      if(this.checkVictory()) {
+        Sound.getInstance().onWin();
+      } else {
+        Sound.getInstance().onMindControl();
+      }
+
       this.selectNode();
     }
   };
@@ -95,6 +109,7 @@ var Game = function () {
         ghost.datum(datum);
 
         // Update the network graph and rerun action checks
+        Sound.getInstance().onMove();
         network.force.start();
         this.updateActions();
       }
@@ -118,10 +133,36 @@ var Game = function () {
     this.moveButton.attr('disabled', !this.movePossible);
     this.loveButton.attr('disabled', !this.lovePossible);
     this.fearButton.attr('disabled', !this.fearPossible);
-  }
+  };
+
+  this.checkVictory = function() {
+    var network = Network.getInstance();
+    var nodes = network.getNodes().filter(function (d,i) { return d.dominated != 0; });
+
+    var victory = false;
+    if(nodes.size() == 0) {
+      var victory = true;
+      console.log('Victory');
+      var n = noty({
+        text        : 'Victory! Well done!',
+        type        : 'success',
+        dismissQueue: true,
+        layout      : 'topCenter',
+        closeWith   : ['click'],
+        theme       : 'relax',
+        maxVisible  : 10,
+        animation   : {
+          open  : 'animated flipInX',
+          close : 'animated flipOutX',
+          easing: 'swing',
+          speed : 500
+        }
+      });
+    }
+
+    return victory;
+  };
 };
 
 Game.getInstance = function () { return Game._instance || new Game(); }
 console.log('Game system: ready');
-
-// (De)Activate button: $('button').prop('disabled', true);

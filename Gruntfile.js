@@ -68,7 +68,9 @@ module.exports = function (grunt) {
             '<%= config.app %>/{,*/}*.html',
             '.tmp/styles/{,*/}*.css',
             '<%= config.app %>/images/{,*/}*',
-            '.tmp/scripts/{,*/}*.js'
+            '.tmp/scripts/{,*/}*.js',
+            '<%= config.app %>/sound/{,*/}*',
+            '<%= config.app %>/data/{,*/}*'
           ],
           port: 9000,
           server: {
@@ -357,6 +359,15 @@ module.exports = function (grunt) {
           dest: '<%= config.dist %>/data',
           src: [
             '{,*/}*.json'
+          ]
+        }, {
+          expand: true,
+          dot: true,
+          cwd: '<%= config.app %>/sound',
+          dest: '<%= config.dist %>/sound',
+          src: [
+            '{,*/}*.mp3',
+            '{,*/}*.ogg'
           ]
         }]
       }

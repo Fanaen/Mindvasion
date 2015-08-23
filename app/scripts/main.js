@@ -36,6 +36,10 @@ $(document).ready(function() {
     var network = Network.getInstance();
     network.init();
     network.loadData(level, sublevel);
+
+    // Game system --
+    var sound = Sound.getInstance();
+    sound.init();
   }
 
   // Load the intro --

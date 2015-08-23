@@ -70,7 +70,7 @@ var Network = function () {
           text        : message,
           type        : 'error',
           dismissQueue: true,
-          layout      : 'topLeft',
+          layout      : 'topCenter',
           closeWith   : ['click'],
           theme       : 'relax',
           maxVisible  : 10,
