@@ -2,6 +2,7 @@
   "level": "1. Tutorial",
   "sublevel": "1. Baby steps",
   "desc": "First view of the system",
+  "nextlevel": "0-1",
   "factions":[
     {"id": 1, "name": "Ennemy"}
   ],

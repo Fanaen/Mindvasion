@@ -236,22 +236,46 @@ var Game = function () {
     var victory = false;
     if(nodes.size() == 0) {
       var victory = true;
-      console.log('Victory');
-      var n = noty({
-        text        : 'Victory! Well done!',
-        type        : 'success',
-        dismissQueue: true,
-        layout      : 'topCenter',
-        closeWith   : ['click'],
-        theme       : 'relax',
-        maxVisible  : 10,
-        animation   : {
-          open  : 'animated flipInX',
-          close : 'animated flipOutX',
-          easing: 'swing',
-          speed : 500
-        }
-      });
+      console.log(this.data.nextlevel);
+      if(this.data.nextlevel) { // There is a next level --
+        var n = noty({
+          text        : 'Victory! Well done!',
+          type        : 'success',
+          dismissQueue: true,
+          layout      : 'topCenter',
+          closeWith   : ['click'],
+          theme       : 'relax',
+          maxVisible  : 10,
+          animation   : {
+            open  : 'animated flipInX',
+            close : 'animated flipOutX',
+            easing: 'swing',
+            speed : 500
+          }
+        });
+
+        setTimeout(function(){
+          var level = Game.getInstance().data.nextlevel.split('-');
+          window.location.replace("?level="+ level[0] +"&sublevel="+ level[1]);
+        }, 3000);
+
+      } else { // End of the game --
+        var n = noty({
+          text        : 'Yay! You finished the game!',
+          type        : 'success',
+          dismissQueue: true,
+          layout      : 'topCenter',
+          closeWith   : ['click'],
+          theme       : 'relax',
+          maxVisible  : 10,
+          animation   : {
+            open  : 'animated flipInX',
+            close : 'animated flipOutX',
+            easing: 'swing',
+            speed : 500
+          }
+        });
+      }
     }
 
     return victory;
