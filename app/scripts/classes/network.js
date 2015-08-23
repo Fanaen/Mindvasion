@@ -71,6 +71,8 @@ var Network = function () {
 
       // -- Use the data --
       Network.getInstance().updateData(graph);
+
+      console.log('Level-'+ level +'-'+ sublevel +': charged');
     });
   };
 

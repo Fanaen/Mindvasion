@@ -1,0 +1,26 @@
+
+// -- Variables --
+
+$modal-content-bg: #223032;
+$modal-text-color: #237ebb;
+
+// -- Global --
+
+.modal {
+  color: lighten($modal-text-color, 30%);
+  font-size: large;
+
+  h2 {
+    color: $modal-text-color;
+  }
+
+  h3 {
+    text-align: center;
+    color: $modal-text-color;
+  }
+
+}
+
+#modalIntro1 {
+
+}
