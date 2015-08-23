@@ -62,7 +62,28 @@ var Network = function () {
 
   this.loadData = function(level, sublevel) {
     d3.json("data/level-"+ level +"-"+ sublevel +".json", function(error, graph) {
-      if (error) throw error;
+      if (error) {
+        var message = "This level does not exists (level-"+ level +"-"+ sublevel +")";
+        console.log(message);
+
+        var n = noty({
+          text        : message,
+          type        : 'error',
+          dismissQueue: true,
+          layout      : 'topLeft',
+          closeWith   : ['click'],
+          theme       : 'relax',
+          maxVisible  : 10,
+          animation   : {
+            open  : 'animated flipInX',
+            close : 'animated flipOutX',
+            easing: 'swing',
+            speed : 500
+          }
+        });
+        return;
+        //throw error;
+      }
 
       // -- Post download process --
 
