@@ -61,7 +61,7 @@ var Game = function () {
       var network = Network.getInstance();
       var ghostNode = network.getGhostNode();
       var ghost = network.getGhost().datum();
-      var node = ghostNode.datum();
+      var node = network.getSelectedNode().datum();
 
       if(ghost.attFear >= node.resFear) {
         node.dominated = 0;
@@ -126,7 +126,6 @@ var Game = function () {
       var network = Network.getInstance();
       var ghost = network.getGhost().datum();
       var ghostNode = network.getGhostNode();
-
       var node = network.getSelectedNode();
 
       // Add  the link --
@@ -155,7 +154,7 @@ var Game = function () {
       var network = Network.getInstance();
       var ghostNode = network.getGhostNode();
       var ghost = network.getGhost().datum();
-      var node = ghostNode.datum();
+      var node = network.getSelectedNode().datum();
 
       if(ghost.attLove >= node.resLove) {
         node.dominated = 0;
@@ -204,22 +203,23 @@ var Game = function () {
 
     var hasParent = true;
     var isReachable = false;
-    if(!this.selectedNode.empty()) {
-      // Link between selection & current --
 
+    // Register actions --
+    this.movePossible = this.killPossible = this.lovePossible =  this.fearPossible = this.swearPossible = false;
+    if(!this.selectedNode.empty()) {
+
+      // Link between selection & current --
       var link = network.getLinkBetweenNodes(this.selectedNode.datum().id, this.currentNode.datum().id);
 
       var parent = network.getLinkToParent(this.currentNode.datum().id);
       hasParent = !parent.empty();
       isReachable = this.currentNode.datum().level - 1 <= this.selectedNode.datum().level;
-    }
 
-    // Register actions --
-    this.movePossible = link != undefined && !link.empty() &&
-      (this.currentNode.datum().dominated == 0 || this.selectedNode.datum().dominated == 0);
-    this.killPossible = link != undefined && !link.empty() && this.currentNode.datum().dominated == 0;
-    this.lovePossible = this.fearPossible = this.currentNode.datum().dominated != 0;
-    this.swearPossible = !hasParent && this.currentNode.datum().dominated == 0 && isReachable;
+      this.movePossible = !link.empty() && this.selectedNode.datum().dominated == 0;
+      this.lovePossible = this.fearPossible = this.selectedNode.datum().dominated != 0;
+      this.killPossible = !link.empty() && this.currentNode.datum().dominated == 0;
+      this.swearPossible = !hasParent && this.currentNode.datum().dominated == 0 && isReachable;
+    }
 
     // Update buttons
     this.moveButton.attr('disabled', !this.movePossible);
