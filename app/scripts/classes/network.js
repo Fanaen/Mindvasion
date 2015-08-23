@@ -135,6 +135,11 @@ var Network = function () {
 
     // Transfer to Game engine --
     Game.getInstance().loadData(graph);
+
+    // Auto select ghost node --
+    var node = this.getGhostNode().datum();
+    this.selectNode(node);
+    Game.getInstance().selectNode(node);
   };
 
   // Links --
@@ -167,12 +172,7 @@ var Network = function () {
       .attr("r", 10)
       .on("click", function(d) {
 
-        // Selection system --
-        var network = Network.getInstance();
-        if(network.selectedNode != undefined) network.selectedNode.selectedNode = false;
-        d.selectedNode = true;
-        network.selectedNode = d;
-        network.restyleNodes(node);
+        Network.getInstance().selectNode(d);
 
         if (d3.event.defaultPrevented) return; /* ignore drag */
 
@@ -187,6 +187,15 @@ var Network = function () {
 
     return this;
   };
+
+  this.selectNode = function(d) {
+
+    console.log(d);
+    if(this.selectedNode != undefined) this.selectedNode.selectedNode = false;
+    d.selectedNode = true;
+    this.selectedNode = d;
+    this.restyleNodes();
+  }
 
   this.restyleNodes = function(node) {
     node = node || this.getNodes();
