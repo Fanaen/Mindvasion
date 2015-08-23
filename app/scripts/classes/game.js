@@ -41,6 +41,7 @@ var Game = function () {
     $('#infoDominated').text(dominatedToString(data.dominated));
     $('#infoResistanceFear').html(resFearToString(data.resFear));
     $('#infoResistanceLove').html(resLoveToString(data.resLove));
+    $('#infoLevel').html(levelToString(data.level));
   };
 
   this.loadData = function(data) {

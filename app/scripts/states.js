@@ -81,3 +81,15 @@ function attFearToString(number) {
     return prefix + "Horifying";
   }
 }
+
+
+function levelToString(number) {
+  var prefix = '<span class="badge level">'+ number +'</span>';
+
+  if(number <= 1) {
+    return prefix + "Boss. Control or kill it.";
+  }
+  else {
+    return prefix + "Minion";
+  }
+}

@@ -185,9 +185,6 @@ var Network = function () {
 
     this.restyleNodes(node);
 
-    node_enter.append("title")
-      .text(function(d) { return d.name + ', Level: '+ d.level; });
-
     return this;
   };
 
