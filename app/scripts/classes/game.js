@@ -141,7 +141,7 @@ var Game = function () {
       var link = network.getLinkBetweenNodes(this.selectedNode.datum().id, this.currentNode.datum().id);
 
     // Register actions --
-    this.movePossible = link != undefined && !link.empty();
+    this.movePossible = link != undefined && !link.empty() && this.currentNode.datum().dominated == 0;
     this.lovePossible = this.fearPossible = this.currentNode.datum().dominated != 0;
 
     // Update buttons
