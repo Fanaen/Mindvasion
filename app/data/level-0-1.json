@@ -1,7 +1,8 @@
 {
   "level": "1. Tutorial",
   "sublevel": "2. Learn to kill",
-  "desc": "Kill and allegiance systems",
+  "desc": "Everyone has an allegiance. You have to kill your superior in order to get a new one. You are a monster, aren't you?",
+  "nextlevel": "1-0",
   "factions":[
     {"id": 1, "name": "Ennemy"},
     {"id": 2, "name": "Boss"}
@@ -20,6 +21,6 @@
     {"source":3,"target":4, "value":1}
   ],
   "ghosts":[
-    {"id": "player", "name": "Player", "nodeId": 0, "attLove": 0, "attFear": 0}
+    {"id": "player", "name": "Mindy", "nodeId": 0, "attLove": 0, "attFear": 0}
   ]
 }

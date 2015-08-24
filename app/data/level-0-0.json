@@ -1,7 +1,7 @@
 {
   "level": "1. Tutorial",
   "sublevel": "1. Baby steps",
-  "desc": "First view of the system",
+  "desc": "To spell a successful hallucination, the minion must be weaker than you.",
   "nextlevel": "0-1",
   "factions":[
     {"id": 1, "name": "Ennemy"}
@@ -16,6 +16,6 @@
     {"source":1,"target":2, "value":1}
   ],
   "ghosts":[
-    {"id": "player", "name": "Player", "nodeId": 0, "attLove": 0, "attFear": 0}
+    {"id": "player", "name": "Mindy", "nodeId": 0, "attLove": 0, "attFear": 0}
   ]
 }

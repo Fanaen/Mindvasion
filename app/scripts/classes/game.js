@@ -48,9 +48,9 @@ var Game = function () {
     this.data = data;
 
     // Change headers --
-    $('#level').text(data.level);
-    $('#sublevel').text(data.sublevel);
-    $('#desc').text(data.desc);
+    $('#level').html(data.level);
+    $('#sublevel').html(data.sublevel);
+    $('#desc').html(data.desc);
 
     this.updateActions();
     this.updateInfoGhost();
@@ -130,15 +130,13 @@ var Game = function () {
 
       // Add  the link --
       var links = network.getLinks().data();
-      var link = {"source": ghostNode.datum().id, "target": node.datum().id, "value": 1}
+      console.log("selected");
+      console.log(node.datum());
+      var link = {"source": ghostNode.datum().id, "target": node.datum().id, "value": 1}// TODO fix dirty trick
       links.push(link);
       network.updateLinks(links);
 
       network.force.links().push(link);
-
-      console.log(network.getLinks().data());
-      console.log(network.force.links());
-
 
       Sound.getInstance().onMindControl();
       network.force.start();
