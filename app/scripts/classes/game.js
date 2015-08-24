@@ -92,10 +92,6 @@ var Game = function () {
 
       var node = network.getSelectedNode();
 
-      // Remove node force --
-      var index = network.force.nodes().indexOf(node.datum());
-      network.force.nodes().splice(index, 1); // Remove one element --
-
       // Remove link force --
       var links = network.getLinkConnectedTo(node.datum().id).data().forEach(function (element, index, array) {
         index = network.force.links().indexOf(element);
@@ -105,8 +101,11 @@ var Game = function () {
       // Remove links shape --
       var links = network.getLinkConnectedTo(node.datum().id).remove();
 
-      // Remove the shape --
-      node.remove();
+      // Set dead --
+      var datum = node.datum();
+      datum.state = "dead";
+      node.datum(datum);
+      network.restyleNodes();
 
       if (this.checkVictory()) {
         Sound.getInstance().onWin();
@@ -214,7 +213,8 @@ var Game = function () {
       this.movePossible = !link.empty() && this.selectedNode.datum().dominated == 0;
       this.lovePossible = this.fearPossible = !link.empty() && this.selectedNode.datum().dominated != 0;
       this.killPossible = !link.empty() && this.currentNode.datum().dominated == 0;
-      this.swearPossible = !hasParent && this.currentNode.datum().dominated == 0 && isReachable;
+      this.swearPossible = !hasParent && this.currentNode.datum().dominated == 0 && isReachable
+        && this.selectedNode.datum().state != "dead";
     }
 
     // Update buttons

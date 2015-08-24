@@ -28,7 +28,7 @@
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
 
-    <div class="col-lg-6" id="header">
+    <div class="col-xs-6" id="header">
       <div id="header-info">
           <p id="level"></p>
           <p id="sublevel"></p>
@@ -56,61 +56,61 @@
         <div id="panel-body-informations" class="panel-body collapse panel-informations">
 
           <div class="row">
-            <div class="col-lg-3"> <p class="property">Name</p></div>
-            <div class="col-lg-9"> <p class="data" id="infoName">--</p></div>
+            <div class="col-xs-3"> <p class="property">Name</p></div>
+            <div class="col-xs-9"> <p class="data" id="infoName">--</p></div>
           </div>
           <div class="row">
-            <div class="col-lg-3"> <p class="property">State</p></div>
-            <div class="col-lg-9"> <p class="data" id="infoState">--</p></div>
+            <div class="col-xs-3"> <p class="property">State</p></div>
+            <div class="col-xs-9"> <p class="data" id="infoState">--</p></div>
           </div>
           <div class="row">
-            <div class="col-lg-3"> <p class="property">Minion</p></div>
-            <div class="col-lg-9"> <p class="data" id="infoDominated">--</p></div>
+            <div class="col-xs-3"> <p class="property">Minion</p></div>
+            <div class="col-xs-9"> <p class="data" id="infoDominated">--</p></div>
           </div>
 
           <div class="row">
-            <div class="col-lg-3"> <p class="property">Lover</p></div>
-            <div class="col-lg-9"> <p class="data" id="infoResistanceLove">--</p></div>
+            <div class="col-xs-3"> <p class="property">Lover</p></div>
+            <div class="col-xs-9"> <p class="data" id="infoResistanceLove">--</p></div>
           </div>
           <div class="row">
-            <div class="col-lg-3"> <p class="property">Brave</p></div>
-            <div class="col-lg-9"> <p class="data" id="infoResistanceFear">--</p></div>
+            <div class="col-xs-3"> <p class="property">Brave</p></div>
+            <div class="col-xs-9"> <p class="data" id="infoResistanceFear">--</p></div>
           </div>
           <div class="row">
-            <div class="col-lg-3"> <p class="property">Level</p></div>
-            <div class="col-lg-9"> <p class="data" id="infoLevel">--</p></div>
+            <div class="col-xs-3"> <p class="property">Level</p></div>
+            <div class="col-xs-9"> <p class="data" id="infoLevel">--</p></div>
           </div>
 
         </div>
       </div>
 
-      <div class="panel panel-warning">
+      <div class="panel panel-warning" style="margin-bottom: 0px;">
         <div class="panel-heading" data-toggle="collapse" data-target="#panel-body-controls">
           <h3 class="panel-title">Controls</h3>
         </div>
         <div id="panel-body-controls" class="panel-body collapse in panel-informations">
 
           <div class="row">
-            <div class="col-lg-3">  <p class="property">Lust</p></div>
-            <div class="col-lg-9"> <p class="data" id="infoAttackLove"></p></div>
+            <div class="col-xs-3">  <p class="property">Lust</p></div>
+            <div class="col-xs-9"> <p class="data" id="infoAttackLove"></p></div>
           </div>
           <div class="row">
-            <div class="col-lg-3">  <p class="property">Fear</p></div>
-            <div class="col-lg-9"> <p class="data" id="infoAttackFear"></p></div>
+            <div class="col-xs-3">  <p class="property">Fear</p></div>
+            <div class="col-xs-9"> <p class="data" id="infoAttackFear"></p></div>
           </div>
 
           <!-- Action buttons -->
           <div class="row">
-            <div class="col-xs-6"><button type="button" id="move" disabled="true"  class="btn btn-info">Follow</button></div>
-            <div class="col-xs-6"><button type="button" id="love" disabled="true"  class="btn btn-success">Succubus</button></div>
+            <div class="col-xs-6"><button type="button" id="move" disabled="true"  class="btn btn-sm btn-info ">Follow</button></div>
+            <div class="col-xs-6"><button type="button" id="love" disabled="true"  class="btn btn-sm btn-success">Succubus</button></div>
           </div>
           <div class="row">
-            <div class="col-xs-6"><button type="button" id="kill" disabled="true"  class="btn btn-danger">Send to kill</button></div>
-            <div class="col-xs-6"><button type="button" id="fear" disabled="true" class="btn btn-warning">Daemon</button></div>
+            <div class="col-xs-6"><button type="button" id="kill" disabled="true"  class="btn btn-sm btn-danger">Send to kill</button></div>
+            <div class="col-xs-6"><button type="button" id="fear" disabled="true" class="btn btn-sm btn-warning">Daemon</button></div>
           </div>
 
           <div class="row">
-            <div class="col-xs-12"><button type="button" id="swear" disabled="true"  class="btn btn-danger">Swear allegiance</button></div>
+            <div class="col-xs-12"><button type="button" id="swear" disabled="true"  class="btn btn-sm btn-danger">Swear allegiance</button></div>
           </div>
 
         </div>
@@ -177,5 +177,21 @@
     <script src="scripts/classes/network.js"></script>
     <script src="scripts/classes/game.js"></script>
     <!-- endbuild -->
+
+    <!-- Piwik -->
+    <script type="text/javascript">
+      var _paq = _paq || [];
+      _paq.push(['trackPageView']);
+      _paq.push(['enableLinkTracking']);
+      (function() {
+        var u="//piwik.fanaen.fr/";
+        _paq.push(['setTrackerUrl', u+'piwik.php']);
+        _paq.push(['setSiteId', 3]);
+        var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+        g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+      })();
+    </script>
+    <noscript><p><img src="//piwik.fanaen.fr/piwik.php?idsite=3" style="border:0;" alt="" /></p></noscript>
+    <!-- End Piwik Code -->
   </body>
 </html>

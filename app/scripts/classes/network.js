@@ -200,6 +200,7 @@ var Network = function () {
 
     var fill = function(d) {
       if(d.dominated == 0) { return "#E74C3C"; }
+      if(d.state == "dead") { return "#969696"; }
       else { return Network.getInstance().color(d.faction); } }
 
     node
