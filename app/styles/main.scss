@@ -1,5 +1,13 @@
 $icon-font-path: "../bower_components/bootstrap-sass/assets/fonts/bootstrap/";
 
+// manual:scss
+@import "mixins";
+@import "game";
+@import "sidebar";
+@import "bootswatch";
+@import "modals";
+// endmanual
+
 // bower:scss
 @import "bower_components/bootstrap-sass/assets/stylesheets/_bootstrap.scss";
 // endbower
@@ -13,8 +21,8 @@ $icon-font-path: "../bower_components/bootstrap-sass/assets/fonts/bootstrap/";
 
 /* Space out content a bit */
 body {
-  padding-top: 20px;
-  padding-bottom: 20px;
+  // padding-top: 20px;
+  // padding-bottom: 20px;
 }
 
 /* Everything but the jumbotron gets side spacing for mobile first views */

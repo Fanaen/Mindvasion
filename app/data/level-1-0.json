@@ -1,0 +1,36 @@
+{
+  "level": "2. Mafia",
+  "sublevel": "3. Backdoor",
+  "desc": "You are ready to \"fight\" small gangsters. Nom nom.",
+  "nextlevel": "1-1",
+  "factions":[
+    {"id": 1, "name": "Mafia"},
+    {"id": 2, "name": "Boss"}
+  ],
+  "nodes":[
+    {"id": 0, "name":"Biagino Iacopo",  "faction":1, "dominated": 0, "state":"love", "resFear":0, "resLove":0, "level":4},
+    {"id": 1, "name":"Tatiana Ilario",  "faction":1, "dominated":-1, "state":"calm", "resFear":0, "resLove":0, "level":4},
+    {"id": 2, "name":"Mauro Sesto",     "faction":1, "dominated":-1, "state":"calm", "resFear":1, "resLove":0, "level":3},
+    {"id": 3, "name":"Santa Bianca",    "faction":1, "dominated":-1, "state":"calm", "resFear":0, "resLove":1, "level":3},
+    {"id": 4, "name":"Elpidio Nora",    "faction":1, "dominated":-1, "state":"calm", "resFear":0, "resLove":1, "level":3},
+    {"id": 5, "name":"Manfredo Biagio", "faction":1, "dominated":-1, "state":"calm", "resFear":0, "resLove":0, "level":3},
+    {"id": 6, "name":"Remigio Sandro",  "faction":1, "dominated":-1, "state":"calm", "resFear":1, "resLove":0, "level":3},
+    {"id": 7, "name":"Clotilde Lorenzo","faction":1, "dominated":-1, "state":"calm", "resFear":1, "resLove":2, "level":2},
+    {"id": 8, "name":"Fulgenzio Dario", "faction":1, "dominated":-1, "state":"calm", "resFear":0, "resLove":1, "level":2},
+    {"id": 9, "name":"Fiorino Brunilda","faction":2, "dominated":-1, "state":"calm", "resFear":5, "resLove":5, "level":1}
+  ],
+  "links":[
+    {"source":0,"target":2, "value":1},
+    {"source":1,"target":2, "value":1},
+    {"source":2,"target":7, "value":1},
+    {"source":3,"target":7, "value":1},
+    {"source":4,"target":7, "value":1},
+    {"source":5,"target":8, "value":1},
+    {"source":6,"target":8, "value":1},
+    {"source":7,"target":9, "value":1},
+    {"source":8,"target":9, "value":1}
+  ],
+  "ghosts":[
+    {"id": "player", "name": "Mindy", "nodeId": 0, "attLove": 0, "attFear": 0}
+  ]
+}

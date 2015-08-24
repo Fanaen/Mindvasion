@@ -1,0 +1,26 @@
+{
+  "level": "1. Tutorial",
+  "sublevel": "2. Learn to kill",
+  "desc": "Everyone has an allegiance. You have to kill your superior in order to get a new one. You are a monster, aren't you?",
+  "nextlevel": "1-0",
+  "factions":[
+    {"id": 1, "name": "Ennemy"},
+    {"id": 2, "name": "Boss"}
+  ],
+  "nodes":[
+    {"id": 0, "name":"A minion",        "faction":1, "dominated": 0, "state":"love", "resFear":0, "resLove":0, "level":4},
+    {"id": 1, "name":"Unreachable guy", "faction":1, "dominated":-1, "state":"calm", "resFear":1, "resLove":0, "level":3},
+    {"id": 2, "name":"An ennemy",       "faction":1, "dominated":-1, "state":"calm", "resFear":1, "resLove":1, "level":3},
+    {"id": 3, "name":"Another ennemy",  "faction":1, "dominated":-1, "state":"calm", "resFear":0, "resLove":1, "level":2},
+    {"id": 4, "name":"Boss",            "faction":2, "dominated":-1, "state":"calm", "resFear":0, "resLove":1, "level":1}
+  ],
+  "links":[
+    {"source":0,"target":2, "value":1},
+    {"source":1,"target":3, "value":1},
+    {"source":2,"target":3, "value":1},
+    {"source":3,"target":4, "value":1}
+  ],
+  "ghosts":[
+    {"id": "player", "name": "Mindy", "nodeId": 0, "attLove": 0, "attFear": 0}
+  ]
+}

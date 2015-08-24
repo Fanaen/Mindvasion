@@ -68,7 +68,9 @@ module.exports = function (grunt) {
             '<%= config.app %>/{,*/}*.html',
             '.tmp/styles/{,*/}*.css',
             '<%= config.app %>/images/{,*/}*',
-            '.tmp/scripts/{,*/}*.js'
+            '.tmp/scripts/{,*/}*.js',
+            '<%= config.app %>/sound/{,*/}*',
+            '<%= config.app %>/data/{,*/}*'
           ],
           port: 9000,
           server: {
@@ -93,12 +95,12 @@ module.exports = function (grunt) {
           }
         }
       },
-      dist: {
+      /* dist: {
         options: {
           background: false,
           server: '<%= config.dist %>'
         }
-      }
+      } */
     },
 
     // Empties folders to start fresh
@@ -350,6 +352,24 @@ module.exports = function (grunt) {
           cwd: '.',
           src: 'bower_components/bootstrap-sass/assets/fonts/bootstrap/*',
           dest: '<%= config.dist %>'
+        }, {
+          expand: true,
+          dot: true,
+          cwd: '<%= config.app %>/data',
+          dest: '<%= config.dist %>/data',
+          src: [
+            '{,*/}*.json'
+          ]
+        }, {
+          expand: true,
+          dot: true,
+          cwd: '<%= config.app %>/sound',
+          dest: '<%= config.dist %>/sound',
+          src: [
+            '{,*/}*.mp3',
+            '{,*/}*.ogg',
+            '{,*/}*.wav'
+          ]
         }]
       }
     },
@@ -443,7 +463,7 @@ module.exports = function (grunt) {
   ]);
 
   grunt.registerTask('default', [
-    'newer:eslint',
+    // 'newer:eslint', TODO: Repair
     'test',
     'build'
   ]);

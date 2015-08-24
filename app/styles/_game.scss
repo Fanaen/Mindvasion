@@ -1,0 +1,49 @@
+
+// -- Variables --
+
+$svg-bg: #263d41;
+$body-bg: darken($svg-bg, 2%);
+
+$svg-stroke: darken($svg-bg, 4%);
+
+// -- General --
+
+html, body {
+  width: 100%;
+  height: 100%;
+}
+
+body {
+  background-color: $body-bg;
+
+  svg {
+    margin: 20px 0 0 20px;
+
+    background: $svg-bg;
+    border: 1px solid $svg-stroke;
+  }
+}
+
+// -- SVG --
+
+.node {
+  stroke: $svg-bg;
+  stroke-width: 2px;
+}
+
+.link {
+  stroke: #fff;
+  stroke-opacity: .2;
+}
+
+.ghost {
+  fill: #E74C3C;
+}
+
+.faction {
+  text {
+    fill: $svg-bg;
+    font-size: 20px;
+  }
+}
+
