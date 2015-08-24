@@ -1,6 +1,6 @@
 {
   "level": "2. Mafia",
-  "sublevel": "3. Combination",
+  "sublevel": "2. Headquarters",
   "desc": "That was easy, right? Ah! Mr Fiorino was a servant!",
   "factions":[
     {"id": 1, "name": "Mafia"},
