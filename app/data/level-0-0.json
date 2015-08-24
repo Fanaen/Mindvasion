@@ -4,12 +4,13 @@
   "desc": "To spell a successful hallucination, the minion must be weaker than you.",
   "nextlevel": "0-1",
   "factions":[
-    {"id": 1, "name": "Ennemy"}
+    {"id": 1, "name": "Ennemy"},
+    {"id": 2, "name": "Boss"}
   ],
   "nodes":[
     {"id": 0, "name":"A minion",        "faction":1, "dominated": 0, "state":"love", "resFear":0, "resLove":0, "level":3},
     {"id": 1, "name":"An ennemy",       "faction":1, "dominated":-1, "state":"calm", "resFear":1, "resLove":0, "level":2},
-    {"id": 2, "name":"Another ennemy",  "faction":1, "dominated":-1, "state":"calm", "resFear":0, "resLove":1, "level":1}
+    {"id": 2, "name":"Another ennemy",  "faction":2, "dominated":-1, "state":"calm", "resFear":0, "resLove":1, "level":1}
   ],
   "links":[
     {"source":0,"target":1, "value":1},

@@ -98,7 +98,7 @@ var Network = function () {
       // -- Post download process --
 
       // Add the player's faction --
-      graph.factions.push({"id": 0, "name": "Player"});
+      graph.factions.push({"id": 0, "name": "Mindy"});
 
       // -- Use the data --
       Network.getInstance().updateData(graph);
@@ -199,8 +199,8 @@ var Network = function () {
     node = node || this.getNodes();
 
     var fill = function(d) {
-      if(d.dominated == 0) { return "#E74C3C"; }
       if(d.state == "dead") { return "#969696"; }
+      if(d.dominated == 0) { return "#E74C3C"; }
       else { return Network.getInstance().color(d.faction); } }
 
     node
