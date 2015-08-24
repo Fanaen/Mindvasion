@@ -45,6 +45,12 @@ $(document).ready(function() {
     $('#restart').on('click', function() {
       network.loadData(level, sublevel);
     });
+
+    // Resize system --
+    $( window ).resize(function() {
+      var network = Network.getInstance();
+      network.updateSize();
+    });
   }
 
   // Load the intro --
@@ -59,3 +65,5 @@ $(document).ready(function() {
     })
   }
 });
+
+
