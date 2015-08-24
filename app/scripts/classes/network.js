@@ -189,8 +189,6 @@ var Network = function () {
   };
 
   this.selectNode = function(d) {
-
-    console.log(d);
     if(this.selectedNode != undefined) this.selectedNode.selectedNode = false;
     d.selectedNode = true;
     this.selectedNode = d;

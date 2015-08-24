@@ -130,8 +130,6 @@ var Game = function () {
 
       // Add  the link --
       var links = network.getLinks().data();
-      console.log("selected");
-      console.log(node.datum());
       var link = {"source": ghostNode.datum().id, "target": node.datum().id, "value": 1}// TODO fix dirty trick
       links.push(link);
       network.updateLinks(links);
