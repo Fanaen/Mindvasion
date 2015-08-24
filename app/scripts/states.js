@@ -10,6 +10,8 @@ function stateToString(state) {
       return "Afraid";
     case "love":
       return "In love";
+    case "dead":
+      return "Dead";
     default:
       return "Unknown";
   }
