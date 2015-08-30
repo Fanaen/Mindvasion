@@ -116,7 +116,7 @@ var Game = function () {
       network.force.start();
       this.updateActions();
 
-      this.selectNode(ghostNode);
+      this.selectNode();
     }
   };
 
@@ -227,7 +227,7 @@ var Game = function () {
 
   this.checkVictory = function() {
     var network = Network.getInstance();
-    var nodes = network.getNodes().filter(function (d,i) { return d.level == 1 && d.dominated != 0; });
+    var nodes = network.getNodes().filter(function (d,i) { return d.level == 1 && d.dominated != 0 && d.state != "dead"; });
 
     var victory = false;
     if(nodes.size() == 0) {
